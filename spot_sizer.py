@@ -4,8 +4,6 @@ Spyder Editor
 
 """
 
-###/Users/mbejarano/anaconda3/bin/python
-
 import matplotlib.pyplot as plt
 import numpy as np
 import os
