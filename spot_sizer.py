@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-"""
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -14,6 +10,7 @@ import math
 from scipy.signal import chirp, find_peaks, peak_widths
 
 plt.close()
+
 print("*******SPOT SIZER*******\nBy Mauricio Bejarano\n",end='\n')
 
 #get user inputs, directory, file output name
@@ -50,9 +47,18 @@ def scale(X, x_min, x_max):
     denom = denom +(denom is 0)
     return x_min + nom/denom 
 
+#Estimate initial parameters
+bot=Y.min()
+top=Y.max()
+mid = (top - bot)/2 + bot
+index_mid = (np.abs(Y-mid)).argmin()
+log50 = X[index_mid]
+HillSlope=1
+
 # Fit the curve
-params2, extras2 = curve_fit(origin_funct, X, Y, method='lm',p0=[0.09,0.24,5560,1.34])
+params2, extras2 = curve_fit(origin_funct, X, Y, method='lm',p0=[bot,top,log50,HillSlope])
 #p0=[0.2,0.3,71919,2.68]
+#p0=[0.09,0.24,5560,1.34]
 
 # Calculate the fitting
 y_fitted4 = origin_funct(X, *params2)
